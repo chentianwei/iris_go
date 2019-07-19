@@ -1,8 +1,6 @@
 package models
 
-import (
-	"log"
-)
+import "github.com/kataras/golog"
 
 type User struct {
 	UserId int64 `json:"user_id"`
@@ -20,7 +18,7 @@ func (u *User) GetUserInfo(userId string) interface{} {
 	err := db.Where("user_id = ?", userId).First(&user).Error
 
 	if err != nil {
-		log.Println("查询失败")
+		golog.Println("查询失败")
 	}
 	return user
 }

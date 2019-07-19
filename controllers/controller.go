@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/kataras/iris"
+	"github.com/kataras/golog"
 )
 
 type BaseController struct{}
@@ -23,7 +23,7 @@ func Response(data interface{}, code int, msg string, ctx iris.Context) {
 
 	jsonRes, err := json.Marshal(res)
 	if err != nil {
-		fmt.Println("json err: ", err)
+		golog.Println("json err: ", err)
 	}
 	ctx.Writef(string(jsonRes))
 }
