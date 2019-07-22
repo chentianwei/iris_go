@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func init() {
+func Init() {
 	ReadEnv()
 	f := LogFile()
 	golog.AddOutput(f)

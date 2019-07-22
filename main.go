@@ -5,16 +5,16 @@ import (
 	"github.com/kataras/golog"
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/middleware/recover"
-	"./models"
 	"./routers"
-	_ "./util"
+	"./util"
 	"github.com/kataras/iris/middleware/logger"
 )
 
 func main() {
-
+	util.Init()
 	envPort := os.Getenv("PORT")
-	issucc := models.GetInstance().InitDataPool()
+	issucc := util.GetInstance().InitDataPool()
+
 	if !issucc {
 		golog.Println("init database pool failure...")
 		os.Exit(1)

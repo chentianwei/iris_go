@@ -1,11 +1,14 @@
 package models
 
-import "github.com/kataras/golog"
+import (
+	"github.com/kataras/golog"
+	"../util"
+)
 
 type User struct {
-	UserId int64 `json:"user_id"`
+	UserId int64  `json:"user_id"`
 	Mobile string `json:"mobile"`
-	Name string `json:"name"`
+	Name   string `json:"name"`
 }
 
 func (User) TableName() string {
@@ -14,7 +17,7 @@ func (User) TableName() string {
 
 func (u *User) GetUserInfo(userId string) interface{} {
 	var user User
-	db := GetInstance().GetMysqlDB()
+	db := util.GetInstance().GetMysqlDB()
 	err := db.Where("user_id = ?", userId).First(&user).Error
 
 	if err != nil {
@@ -25,12 +28,12 @@ func (u *User) GetUserInfo(userId string) interface{} {
 
 func (u *User) GetUserList(limit, offset int) interface{} {
 	var users [] User
-	db := GetInstance().GetMysqlDB()
+	db := util.GetInstance().GetMysqlDB()
 	db.Offset(offset).Limit(limit).Find(&users)
 	return users
 }
 
 func (u *User) CreateUser(user *User) {
-	db := GetInstance().GetMysqlDB()
+	db := util.GetInstance().GetMysqlDB()
 	db.Table("h_user").Create(&user)
 }
